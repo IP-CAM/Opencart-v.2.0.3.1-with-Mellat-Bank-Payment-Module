@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']		 = 'واریز به حساب';
+$_['heading_title']		 = 'بانک اقتصاد نوین';
 
 // Text
 $_['text_payment']		 = 'پرداخت ها';
