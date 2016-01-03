@@ -3,6 +3,35 @@ class ControllerPaymentEnbank extends Controller {
 	public function index() {
 		$this->load->language('payment/enbank');
 
+		$data['action'] = 'https://pna.shaparak.ir/CardServices/controller';
+		$this->load->model('checkout/order');
+		
+		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+		
+		//$this->load->library('encryption');
+		
+		//$encryption = new Encryption($this->config->get('config_encryption'));
+		
+	     $data['Amount'] = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
+		if($this->currency->getCode()=='TOM') {
+			$data['Amount']=$data['Amount'] * 10;
+		}
+		$data['MID']=$this->config->get('merchantID');
+		$data['RedirectURL'] = $this->url->link('payment/enbank/callback&order_id=' . $encryption->encrypt($this->session->data['order_id']));
+		//$data['RedirectURL'] = HTTPS_SERVER . 'index.php?route=payment/sb24/callback&order_id=' . $encryption->encrypt($this->session->data['order_id']);
+		$data['ResNum'] = $this->session->data['order_id'];
+		
+		$data['return'] = $this->url->link('checkout/success', '', 'SSL');
+		//$data['return'] = HTTPS_SERVER . 'index.php?route=checkout/success';
+		
+		$data['cancel_return'] = $this->url->link('checkout/payment', '', 'SSL');
+		//$data['cancel_return'] = HTTPS_SERVER . 'index.php?route=checkout/payment';
+
+		$data['back'] = $this->url->link('checkout/payment', '', 'SSL');
+		//$data['back'] = HTTPS_SERVER . 'index.php?route=checkout/payment';
+		
+		
+		
 		$data['text_instruction'] = $this->language->get('text_instruction');
 		$data['text_payable'] = $this->language->get('text_payable');
 		$data['text_address'] = $this->language->get('text_address');
