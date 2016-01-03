@@ -24,7 +24,7 @@ class ControllerPaymentEnbank extends Controller {
 		$data['text_disabled'] = $this->language->get('text_disabled');
 		$data['text_all_zones'] = $this->language->get('text_all_zones');
 
-		$data['entry_bank'] = $this->language->get('entry_bank');
+		$data['entry_payable'] = $this->language->get('entry_payable');
 		$data['entry_total'] = $this->language->get('entry_total');
 		$data['entry_order_status'] = $this->language->get('entry_order_status');
 		$data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
@@ -42,16 +42,10 @@ class ControllerPaymentEnbank extends Controller {
 			$data['error_warning'] = '';
 		}
 
-		$this->load->model('localisation/language');
-
-		$languages = $this->model_localisation_language->getLanguages();
-
-		foreach ($languages as $language) {
-			if (isset($this->error['bank' . $language['language_id']])) {
-				$data['error_bank' . $language['language_id']] = $this->error['bank' . $language['language_id']];
-			} else {
-				$data['error_bank' . $language['language_id']] = '';
-			}
+		if (isset($this->error['payable'])) {
+			$data['error_payable'] = $this->error['payable'];
+		} else {
+			$data['error_payable'] = '';
 		}
 
 		$data['breadcrumbs'] = array();
@@ -75,17 +69,11 @@ class ControllerPaymentEnbank extends Controller {
 
 		$data['cancel'] = $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL');
 
-		$this->load->model('localisation/language');
-
-		foreach ($languages as $language) {
-			if (isset($this->request->post['enbank_bank' . $language['language_id']])) {
-				$data['enbank_bank' . $language['language_id']] = $this->request->post['enbank_bank' . $language['language_id']];
-			} else {
-				$data['enbank_bank' . $language['language_id']] = $this->config->get('enbank_bank' . $language['language_id']);
-			}
+		if (isset($this->request->post['enbank_payable'])) {
+			$data['enbank_payable'] = $this->request->post['enbank_payable'];
+		} else {
+			$data['enbank_payable'] = $this->config->get('enbank_payable');
 		}
-
-		$data['languages'] = $languages;
 
 		if (isset($this->request->post['enbank_total'])) {
 			$data['enbank_total'] = $this->request->post['enbank_total'];
@@ -137,14 +125,8 @@ class ControllerPaymentEnbank extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		$this->load->model('localisation/language');
-
-		$languages = $this->model_localisation_language->getLanguages();
-
-		foreach ($languages as $language) {
-			if (empty($this->request->post['enbank_bank' . $language['language_id']])) {
-				$this->error['bank' .  $language['language_id']] = $this->language->get('error_bank');
-			}
+		if (!$this->request->post['enbank_payable']) {
+			$this->error['payable'] = $this->language->get('error_payable');
 		}
 
 		return !$this->error;
