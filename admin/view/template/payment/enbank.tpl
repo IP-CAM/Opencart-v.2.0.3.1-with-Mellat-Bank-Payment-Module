@@ -26,20 +26,15 @@
       <div class="panel-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-enbank" class="form-horizontal">
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-payable"><?php echo $entry_payable; ?></label>
+            <label class="col-sm-2 control-label" for="input-payable"><?php echo $merchantID; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="enbank_payable" value="<?php echo $enbank_payable; ?>" placeholder="<?php echo $entry_payable; ?>" id="input-payable" class="form-control" />
+              <input type="text" name="enbank_payable" value="<?php echo $enbank_payable; ?>" placeholder="<?php echo $merchantID; ?>" id="input-payable" class="form-control" />
               <?php if ($error_payable) { ?>
               <div class="text-danger"><?php echo $error_payable; ?></div>
               <?php } ?>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
-            <div class="col-sm-10">
-              <input type="text" name="enbank_total" value="<?php echo $enbank_total; ?>" placeholder="<?php echo $entry_total; ?>" id="input-total" class="form-control" />
-            </div>
-          </div>
+          
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-order-status"><?php echo $entry_order_status; ?></label>
             <div class="col-sm-10">

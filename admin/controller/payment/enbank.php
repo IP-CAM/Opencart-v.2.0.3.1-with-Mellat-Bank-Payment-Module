@@ -24,8 +24,8 @@ class ControllerPaymentEnbank extends Controller {
 		$data['text_disabled'] = $this->language->get('text_disabled');
 		$data['text_all_zones'] = $this->language->get('text_all_zones');
 
-		$data['entry_payable'] = $this->language->get('entry_payable');
-		$data['entry_total'] = $this->language->get('entry_total');
+		$data['merchantID'] = $this->language->get('merchantID');
+		//$data['entry_total'] = $this->language->get('entry_total');
 		$data['entry_order_status'] = $this->language->get('entry_order_status');
 		$data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$data['entry_status'] = $this->language->get('entry_status');
