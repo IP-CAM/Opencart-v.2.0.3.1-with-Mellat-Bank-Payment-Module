@@ -17,7 +17,7 @@ class ControllerPaymentEnbank extends Controller {
 			$data['Amount']=$data['Amount'] * 10;
 		}
 		$data['MID']=$this->config->get('merchantID');
-		$data['RedirectURL'] = $this->url->link('payment/enbank/callback&order_id=' . $data['order_id']);
+		$data['RedirectURL'] = $this->url->link('payment/enbank/callback&order_id=' . $order_info);
 		//$data['RedirectURL'] = HTTPS_SERVER . 'index.php?route=payment/sb24/callback&order_id=' . $encryption->encrypt($this->session->data['order_id']);
 		$data['ResNum'] = $this->session->data['order_id'];
 		
